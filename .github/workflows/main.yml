@@ -57,7 +57,7 @@ jobs:
           if available and not unavailable:
               message = """🚨 RESTOCK POKÉMON 30 ANS
 
-🟢 Coffret Dresseur d'Élite 30A
+🟢 Coffret Dresseur d'élite 30A
 🏪 Fnac
 
 🔗 https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Dresseur-d-Elite/a23200296/w-4"""
