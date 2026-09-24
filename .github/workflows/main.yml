@@ -1,84 +1,21 @@
 name: Pokemon Restock Monitor
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "*/5 * * * *"
-  workflow_dispatch:
 
 jobs:
   monitor:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Vérifier le stock Fnac
+      - name: Test Telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          python - <<'PY'
-          import os
-          import urllib.request
-          import urllib.parse
-
-          url = "https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Dresseur-d-Elite/a23200296/w-4"
-
-          req = urllib.request.Request(
-              url,
-              headers={
-                  "User-Agent": "Mozilla/5.0 (Android; Mobile) AppleWebKit/537.36 Chrome/140 Mobile Safari/537.36"
-              }
-          )
-
-          try:
-              html = urllib.request.urlopen(req, timeout=20).read().decode("utf-8", errors="ignore")
-          except Exception as e:
-              print("Erreur lors de la récupération de la page :", e)
-              raise SystemExit(1)
-
-          # Indicateurs de disponibilité.
-          available_words = [
-              "ajouter au panier",
-              "en stock"
-          ]
-
-          unavailable_words = [
-              "indisponible en ligne",
-              "rupture de stock"
-          ]
-
-          html_lower = html.lower()
-
-          available = any(word in html_lower for word in available_words)
-          unavailable = any(word in html_lower for word in unavailable_words)
-
-          print("Disponible :", available)
-          print("Indisponible :", unavailable)
-
-          if available and not unavailable:
-              message = """🚨 RESTOCK POKÉMON 30 ANS
-
-🟢 Coffret Dresseur d'élite 30A
-🏪 Fnac
-
-🔗 https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Dresseur-d-Elite/a23200296/w-4"""
-
-              data = urllib.parse.urlencode({
-                  "chat_id": os.environ["TELEGRAM_CHAT_ID"],
-                  "text": message
-              }).encode()
-
-              telegram_url = (
-                  "https://api.telegram.org/bot"
-                  + os.environ["TELEGRAM_BOT_TOKEN"]
-                  + "/sendMessage"
-              )
-
-              urllib.request.urlopen(
-                  urllib.request.Request(telegram_url, data=data),
-                  timeout=20
-              )
-
-              print("🚨 ALERTE TELEGRAM ENVOYÉE")
-          else:
-              print("Pas de restock détecté.")
-          PY
+          curl -sS -X POST \
+            "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=🟢 Surveillance Pokémon 30 ans active !"
