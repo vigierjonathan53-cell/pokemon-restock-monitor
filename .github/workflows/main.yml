@@ -2,30 +2,26 @@ name: Pokemon Restock Monitor
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "*/5 * * * *"
 
 jobs:
   monitor:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Fnac stock
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - name: Diagnostic Fnac
         run: |
-          PAGE=$(curl -L -sS \
+          curl -L -sS \
             -A "Mozilla/5.0" \
-            "https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Amphinobi-ex/a23200310/w-4")
+            "https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Amphinobi-ex/a23200310/w-4" \
+            -o fnac.html
 
-          if echo "$PAGE" | grep -q "Indisponible en ligne"; then
-            echo "✅ Fnac : produit indisponible. Aucune alerte."
+          echo "=== RECHERCHE DU STATUT ==="
+
+          if grep -qi "Indisponible en ligne" fnac.html; then
+            echo "TROUVE : Indisponible en ligne"
           else
-            echo "🚨 Le texte 'Indisponible en ligne' n'est plus présent !"
-
-            curl -sS -X POST \
-              "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-              --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-              --data-urlencode "text=🚨 STOCK FNAC POSSIBLE ! Coffret Pokémon 30A Amphinobi-ex : https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Amphinobi-ex/a23200310/w-4"
+            echo "PAS TROUVE : Indisponible en ligne"
           fi
+
+          echo "=== TAILLE DE LA PAGE ==="
+          wc -c fnac.html
