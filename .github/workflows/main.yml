@@ -8,19 +8,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Diagnostic Fnac
+      - name: Check Fnac stock
         run: |
           curl -L -sS \
             -A "Mozilla/5.0" \
             "https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Amphinobi-ex/a23200310/w-4" \
             -o fnac.html
 
-          echo "=== RECHERCHE DU STATUT ==="
+          echo "=== CHECK FNAC STOCK ==="
 
           if grep -qi "Indisponible en ligne" fnac.html; then
-            echo "TROUVE : Indisponible en ligne"
+            echo "❌ INDISPONIBLE"
           else
-            echo "PAS TROUVE : Indisponible en ligne"
+            echo "✅ STATUT À VÉRIFIER"
+          fi
+
+          echo "=== TAILLE DE LA PAGE ==="
+          wc -c fnac.html en ligne"
           fi
 
           echo "=== TAILLE DE LA PAGE ==="
