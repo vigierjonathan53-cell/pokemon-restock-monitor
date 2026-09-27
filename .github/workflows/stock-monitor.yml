@@ -1,0 +1,31 @@
+name: Stock Monitor
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test accès Fnac
+        run: |
+          echo "=== TEST FNAC ==="
+          curl -L -sS \
+            -A "Mozilla/5.0" \
+            -o fnac.html \
+            "https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Amphinobi-ex/a23200310/w-4"
+
+          echo "Taille de la réponse :"
+          wc -c fnac.html
+
+      - name: Test accès Cultura
+        run: |
+          echo "=== TEST CULTURA ==="
+          curl -L -sS \
+            -A "Mozilla/5.0" \
+            -o cultura.html \
+            "https://www.cultura.com/p-pokemon-q3-26-coffret-ex-pokemon-v2-13196943.html"
+
+          echo "Taille de la réponse :"
+          wc -c cultura.html
