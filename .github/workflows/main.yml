@@ -15,12 +15,16 @@ jobs:
             "https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Amphinobi-ex/a23200310/w-4" \
             -o fnac.html
 
-          echo "=== CONTEXTE DU MOT DISPONIBLE ==="
+          echo "=== RECHERCHE BOUTON PANIER ==="
 
-          grep -oiE ".{0,150}disponible.{0,250}" fnac.html | head -10 || true
+          grep -oiE ".{0,150}(Ajouter au panier|ajouter au panier|panier).{0,250}" fnac.html | head -20 || true
 
-          echo "=== CONTEXTE DU MOT INDISPONIBLE ==="
+          echo "=== RECHERCHE STOCK ==="
 
+          grep -oiE ".{0,150}(En stock|en stock|Rupture|rupture|Disponible|disponible|Indisponible|indisponible).{0,250}" fnac.html | head -20 || true
+
+          echo "=== TAILLE DE LA PAGE ==="
+          wc -c fnac.html
           grep -oiE ".{0,150}indisponible.{0,250}" fnac.html | head -10 || true
 
           echo "=== TAILLE DE LA PAGE ==="
