@@ -18,13 +18,9 @@ jobs:
           echo "=== CHECK FNAC STOCK ==="
 
           if grep -qi "Indisponible en ligne" fnac.html; then
-            echo "❌ INDISPONIBLE"
+            echo "INDISPONIBLE"
           else
-            echo "✅ STATUT À VÉRIFIER"
-          fi
-
-          echo "=== TAILLE DE LA PAGE ==="
-          wc -c fnac.html en ligne"
+            echo "STATUT À VÉRIFIER"
           fi
 
           echo "=== TAILLE DE LA PAGE ==="
