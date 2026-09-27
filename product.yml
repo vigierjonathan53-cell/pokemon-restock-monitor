@@ -1,0 +1,102 @@
+products:
+  - id: amphinobi-ex
+    name: "Coffret 30e Anniversaire Amphinobi-ex"
+    keywords:
+      - "Amphinobi"
+      - "30e Anniversaire"
+
+  - id: nymphali-ex
+    name: "Coffret 30e Anniversaire Nymphali-ex"
+    keywords:
+      - "Nymphali"
+      - "30e Anniversaire"
+
+  - id: etb-30
+    name: "Coffret Dresseur d'élite 30e Anniversaire"
+    keywords:
+      - "ETB"
+      - "30e Anniversaire"
+
+  - id: blister-2
+    name: "Blister 2 boosters 30e Anniversaire"
+    keywords:
+      - "blister"
+      - "2 boosters"
+      - "30e Anniversaire"
+
+  - id: collection-poster
+    name: "Collection poster 30e Anniversaire"
+    keywords:
+      - "collection poster"
+      - "30e Anniversaire"
+
+  - id: collection-autocollants
+    name: "Collection autocollant réajustable 30e Anniversaire"
+    keywords:
+      - "autocollant"
+      - "30e Anniversaire"
+
+  - id: classeur
+    name: "Collection classeur 30e Anniversaire"
+    keywords:
+      - "classeur"
+      - "30e Anniversaire"
+
+  - id: bundle-6
+    name: "Lot de 6 boosters 30e Anniversaire"
+    keywords:
+      - "6 boosters"
+      - "30e Anniversaire"
+
+  - id: mini-boites
+    name: "Mini-boîtes 30e Anniversaire"
+    keywords:
+      - "mini-boîte"
+      - "30e Anniversaire"
+
+  - id: mentali-ex
+    name: "Deck Combat 30e Anniversaire Mentali-ex"
+    keywords:
+      - "Mentali"
+      - "30e Anniversaire"
+
+  - id: noctali-ex
+    name: "Deck Combat 30e Anniversaire Noctali-ex"
+    keywords:
+      - "Noctali"
+      - "30e Anniversaire"
+
+  - id: premium-metamorph
+    name: "Collection Premium Métamorph 30e Anniversaire"
+    keywords:
+      - "Métamorph"
+      - "Premium"
+      - "30e Anniversaire"
+
+  - id: ultra-premium-mentali
+    name: "Collection Ultra-Premium 30e Anniversaire Mentali-ex"
+    keywords:
+      - "Ultra-Premium"
+      - "Mentali"
+      - "30e Anniversaire"
+
+  - id: ultra-premium-noctali
+    name: "Collection Ultra-Premium 30e Anniversaire Noctali-ex"
+    keywords:
+      - "Ultra-Premium"
+      - "Noctali"
+      - "30e Anniversaire"
+
+  - id: mew
+    name: "Collection avec figurine 30e Anniversaire Mew"
+    keywords:
+      - "Mew"
+      - "figurine"
+      - "30e Anniversaire"
+
+  - id: mewtwo
+    name: "Collection avec figurine 30e Anniversaire Mewtwo"
+    keywords:
+      - "Mewtwo"
+      - "figurine"
+      - "30e Anniversaire"
