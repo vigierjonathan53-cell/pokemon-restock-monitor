@@ -18,26 +18,33 @@ jobs:
           npm install playwright
           npx playwright install --with-deps chromium
 
-      - name: Ouvrir Fnac avec Chromium
+      - name: Tester Fnac via recherche
         run: |
           node <<'EOF'
           const { chromium } = require('playwright');
 
           (async () => {
-            const browser = await chromium.launch({headless: true});
-            const page = await browser.newPage({
+            const browser = await chromium.launch({ headless: true });
+
+            const context = await browser.newContext({
               viewport: { width: 1440, height: 1200 },
-              userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140.0.0.0 Safari/537.36'
+              locale: 'fr-FR',
+              timezoneId: 'Europe/Paris',
+              userAgent:
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
             });
 
-            const url = 'https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Amphinobi-ex/a23200310/w-4';
+            const page = await context.newPage();
+
+            const url =
+              'https://www.fnac.com/SearchResult/ResultList.aspx?Search=Pokemon+30A+Amphinobi';
 
             await page.goto(url, {
               waitUntil: 'domcontentloaded',
               timeout: 60000
             });
 
-            await page.waitForTimeout(5000);
+            await page.waitForTimeout(8000);
 
             console.log('=== URL FINALE ===');
             console.log(page.url());
@@ -45,18 +52,18 @@ jobs:
             console.log('=== TITRE ===');
             console.log(await page.title());
 
-            console.log('=== TEXTE DISPONIBILITÉ ===');
+            console.log('=== TEXTE ===');
 
             const texte = await page.locator('body').innerText();
 
-            const lignes = texte
-              .split('\n')
-              .map(x => x.trim())
-              .filter(x =>
-                /panier|stock|disponible|indisponible|rupture/i.test(x)
-              );
-
-            console.log(lignes.slice(0, 50).join('\n'));
+            console.log(
+              texte
+                .split('\n')
+                .map(x => x.trim())
+                .filter(x => x.length > 0)
+                .slice(0, 120)
+                .join('\n')
+            );
 
             console.log('=== FIN DU TEST ===');
 
