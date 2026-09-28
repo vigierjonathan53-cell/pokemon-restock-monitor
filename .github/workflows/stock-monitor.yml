@@ -8,29 +8,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test accès Fnac
+      - name: Vérifier disponibilité Fnac
         run: |
-          echo "=== TEST FNAC ==="
           curl -L -sS \
             -A "Mozilla/5.0" \
             -o fnac.html \
             "https://www.fnac.com/Cartes-a-collectionner-Pokemon-30A-Coffret-Amphinobi-ex/a23200310/w-4"
 
-          echo "Taille de la réponse :"
-          wc -c fnac.html
+          echo "=== DONNÉES DE DISPONIBILITÉ FNAC ==="
 
-      - name: Test accès Cultura
-        run: |
-          echo "=== TEST STOCK CULTURA ==="
+          grep -oiE '"availability[^"]*"[^,}]*' fnac.html | head -20 || true
 
-          curl -L -sS \
-            -A "Mozilla/5.0" \
-            -o cultura.html \
-            "https://www.cultura.com/p-pokemon-q3-26-coffret-ex-pokemon-v2-13196943.html"
+          echo "=== ÉTATS DE STOCK ==="
 
-          echo "=== TEXTES DE STOCK ==="
-
-          grep -oiE ".{0,150}(EN STOCK|En stock|Ajouter au panier|Rupture|Indisponible|Disponible).{0,250}" cultura.html | head -20 || true
+          grep -oiE 'in-stock|out-of-stock|sold-out|limited-availability|online-only|pre-order|pre-sale' fnac.html | sort -fu || true
 
           echo "=== TAILLE ==="
-          wc -c cultura.html
+          wc -c fnac.html
