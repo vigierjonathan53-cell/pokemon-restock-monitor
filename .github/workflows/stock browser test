@@ -1,4 +1,4 @@
-name: Stock Browser Test
+name: Stock Browser  Test
 
 on:
   workflow_dispatch:
